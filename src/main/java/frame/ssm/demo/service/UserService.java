@@ -21,5 +21,5 @@ public interface UserService extends BaseService<User>{
      * @param userId 用户id
      * @return 角色列表
      */
-    List<String> getRolesByUserId(Integer account);
+    List<String> getRolesByUserId(String account);
 }

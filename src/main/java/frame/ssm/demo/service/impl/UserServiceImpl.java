@@ -48,8 +48,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<User> selectList(User entity) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return userMapper.selectList(entity);
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<String> getRolesByUserId(Integer account) {
+	public List<String> getRolesByUserId(String account) {
 		// TODO Auto-generated method stub
 		return null;
 	}

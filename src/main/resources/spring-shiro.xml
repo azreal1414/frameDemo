@@ -57,8 +57,8 @@
         <!--</property>-->
         <property name="filterChainDefinitions">
             <value>
-                /user/**=authc
-                /admin/**=sysAuthc
+               <!-- /user/**=authc
+                /admin/**=sysAuthc-->
             </value>
         </property>
     </bean>
