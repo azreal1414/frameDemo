@@ -5,7 +5,7 @@
 
 
     <!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义的ShiroDbRealm.java -->
-    <bean id="myRealm" class="frame.ssm.demo.security.UserRealm"/>
+    <bean id="myRealm" class="frame.ssm.demo.security.realm.UserRealm"/>
 
     <!-- 基于Form表单的身份验证过滤器 -->
     <bean id="formAuthenticationFilter"
