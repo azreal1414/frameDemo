@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="frame.ssm.demo.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="frame.ssm.demo.model.User">
+    <id column="ACCOUNT" jdbcType="VARCHAR" property="account" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="NIKE_NAME" jdbcType="VARCHAR" property="nikeName" />
+    <result column="ID_NUM" jdbcType="VARCHAR" property="idNum" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="SEX" jdbcType="TINYINT" property="sex" />
+    <result column="AGE" jdbcType="TINYINT" property="age" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="NATION" jdbcType="VARCHAR" property="nation" />
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="AREA" jdbcType="VARCHAR" property="area" />
+    <result column="SPECIFIC_ADDRESS" jdbcType="VARCHAR" property="specificAddress" />
+    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="UPDATE_TIME" jdbcType="VARCHAR" property="updateTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="DEL_FLAG" jdbcType="TINYINT" property="delFlag" />
+    <result column="ENABLE" jdbcType="TINYINT" property="enable" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    ACCOUNT, NAME, NIKE_NAME, ID_NUM, PASSWORD, SEX, AGE, PHONE, EMAIL, NATION, PROVINCE, 
+    CITY, AREA, SPECIFIC_ADDRESS, CREATE_TIME, CREATE_USER, UPDATE_TIME, UPDATE_USER, 
+    DEL_FLAG, ENABLE
+  </sql>
+  
+  <sql id="QUERY_CONDITION">
+  	<where>
+  		<if test="account != null">
+  			ACCOUNT = #{account, jdbcType=VARCHAR}
+  		</if>
+  		<if test="name != null">
+  			NAME = #{name, jdbcType=VARCHAR}
+  		</if>
+  		<if test="nikeName != null">
+  			NIKE_NAME = #{nikeName, jdbcType=VARCHAR}
+  		</if>
+  		<if test="idNum != null">
+  			ID_NUM = #{idNum, jdbcType=VARCHAR}
+  		</if>
+  		<if test="password != null">
+  			PASSWORD = #{password, jdbcType=VARCHAR}
+  		</if>
+  		<if test="sex != null">
+  			SEX = #{sex, jdbcType=TINYINT}
+  		</if>
+  		<if test="age != null">
+  			AGE = #{age, jdbcType=TINYINT}
+  		</if>
+  		<if test="phone != null">
+  			PHONE = #{phone, jdbcType=VARCHAR}
+  		</if>
+  		<if test="email != null">
+  			EMAIL = #{email, jdbcType=VARCHAR}
+  		</if>
+  		<if test="nation != null">
+  			NATION = #{nation, jdbcType=VARCHAR}
+  		</if>
+  		<if test="province != null">
+  			PROVINCE = #{province, jdbcType=VARCHAR}
+  		</if>
+  		<if test="city != null">
+  			CITY = #{city, jdbcType=VARCHAR}
+  		</if>
+  		<if test="area != null">
+  			AREA = #{area, jdbcType=VARCHAR}
+  		</if>
+  		<if test="specificAddress != null">
+  			SPECIFIC_ADDRESS = #{specificAddress, jdbcType=VARCHAR}
+  		</if>
+  		<if test="createTime != null">
+  			CREATE_TIME = #{createTime, jdbcType=VARCHAR}
+  		</if>
+  		<if test="createUser != null">
+  			CREATE_USER = #{createUser, jdbcType=VARCHAR}
+  		</if>
+  		<if test="updateTime != null">
+  			UPDATE_TIME = #{updateTime, jdbcType=VARCHAR}
+  		</if>
+  		<if test="updateUser != null">
+  			UPDATE_USER = #{updateUser, jdbcType=VARCHAR}
+  		</if>
+  		<if test="delFlag != null">
+  			DEL_FLAG = #{delFlag, jdbcType=TINYINT}
+  		</if>
+  		<if test="enable != null">
+  			ENABLE = #{enable, jdbcType=TINYINT}
+  		</if>
+  	</where>
+  </sql>
+  
+  <sql id="ORDER_CONDITION">
+        <if test="orderList != null">
+            <trim prefix="ORDER BY" prefixOverrides=",">
+                <foreach collection="orderList" open="" item="order" separator="," close="">
+                    <choose>
+                        <when test="order.columnName =='account'">ACCOUNT ${order.option}</when>
+                        <when test="order.columnName =='createTime'">CREATE_TIME ${order.option}</when>
+                        <when test="order.columnName =='updateTime'">UPDATE_TIME ${order.option}</when>
+                    </choose>
+                </foreach>
+            </trim>
+        </if>
+    </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where ACCOUNT = #{account,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectList" parameterType="frame.ssm.demo.model.User" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List"/> 
+  	from user 
+  	<include refid="QUERY_CONDITION"/>
+  	<include refid="ORDER_CONDITION"/>
+  </select>
+  
+  <insert id="insert" parameterType="frame.ssm.demo.model.User">
+    insert into user (ACCOUNT, NAME, NIKE_NAME, 
+      ID_NUM, PASSWORD, SEX, AGE, 
+      PHONE, EMAIL, NATION, 
+      PROVINCE, CITY, AREA, 
+      SPECIFIC_ADDRESS, CREATE_TIME, CREATE_USER, 
+      UPDATE_TIME, UPDATE_USER, DEL_FLAG, 
+      ENABLE)
+    values (#{account,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{nikeName,jdbcType=VARCHAR}, 
+      #{idNum,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{sex,jdbcType=BIT}, #{age,jdbcType=TINYINT}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{specificAddress,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR}, #{delFlag,jdbcType=TINYINT}, 
+      #{enable,jdbcType=TINYINT})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="frame.ssm.demo.model.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="account != null">
+        ACCOUNT,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="nikeName != null">
+        NIKE_NAME,
+      </if>
+      <if test="idNum != null">
+        ID_NUM,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="sex != null">
+        SEX,
+      </if>
+      <if test="age != null">
+        AGE,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="nation != null">
+        NATION,
+      </if>
+      <if test="province != null">
+        PROVINCE,
+      </if>
+      <if test="city != null">
+        CITY,
+      </if>
+      <if test="area != null">
+        AREA,
+      </if>
+      <if test="specificAddress != null">
+        SPECIFIC_ADDRESS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="delFlag != null">
+        DEL_FLAG,
+      </if>
+      <if test="enable != null">
+        ENABLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nikeName != null">
+        #{nikeName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null">
+        #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=BIT},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=TINYINT},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="specificAddress != null">
+        #{specificAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from user
+  </select>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="frame.ssm.demo.model.User">
+    update user
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nikeName != null">
+        NIKE_NAME = #{nikeName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNum != null">
+        ID_NUM = #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        SEX = #{sex,jdbcType=BIT},
+      </if>
+      <if test="age != null">
+        AGE = #{age,jdbcType=TINYINT},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        NATION = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        AREA = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="specificAddress != null">
+        SPECIFIC_ADDRESS = #{specificAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        DEL_FLAG = #{delFlag,jdbcType=TINYINT},
+      </if>
+      <if test="enable != null">
+        ENABLE = #{enable,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ACCOUNT = #{account,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="frame.ssm.demo.model.User">
+    update user
+    set NAME = #{name,jdbcType=VARCHAR},
+      NIKE_NAME = #{nikeName,jdbcType=VARCHAR},
+      ID_NUM = #{idNum,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=BIT},
+      AGE = #{age,jdbcType=TINYINT},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      NATION = #{nation,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      AREA = #{area,jdbcType=VARCHAR},
+      SPECIFIC_ADDRESS = #{specificAddress,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=VARCHAR},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      DEL_FLAG = #{delFlag,jdbcType=TINYINT},
+      ENABLE = #{enable,jdbcType=TINYINT}
+    where ACCOUNT = #{account,jdbcType=VARCHAR}
+  </update>
+</mapper>
