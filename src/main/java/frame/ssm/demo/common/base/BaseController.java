@@ -45,7 +45,7 @@ public class BaseController {
 		return (User) SecurityUtils.getSubject().getPrincipal();
 	}
 	
-	protected String responseJsonPageData(List rows, long total) {
+	protected String responseJsonPageData(@SuppressWarnings("rawtypes") List rows, long total) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("code", GlobalEnums.SUCCESS.getCode());
 		if (CollectionUtils.isNotEmpty(rows)) {
