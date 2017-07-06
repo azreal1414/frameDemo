@@ -25,7 +25,7 @@ public class UserRealm extends AuthorizingRealm {
 		//获取当前登录的用户名
 		User user = (User) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();
-		List<String> list = userService.getRolesByUserId(user.getAccount());
+		List<String> list = userService.selectRoleByUserAccount(user.getAccount());
 		simpleAuthorInfo.addRoles(list);
 		return simpleAuthorInfo;
 	}

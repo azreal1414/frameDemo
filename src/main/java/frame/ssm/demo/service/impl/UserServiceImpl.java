@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import frame.ssm.demo.dao.RoleRelationMapper;
 import frame.ssm.demo.dao.UserMapper;
+import frame.ssm.demo.model.RoleRelation;
 import frame.ssm.demo.model.User;
 import frame.ssm.demo.service.UserService;
 
@@ -15,6 +17,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private RoleRelationMapper roleRelationMapper;
 
 	@Override
 	public int insert(User entity) {
@@ -60,14 +65,17 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User getUserByUsername(String account) {
-		// TODO Auto-generated method stub
-		return null;
+		return userMapper.getUserByUsername(account);
 	}
 
 	@Override
-	public List<String> getRolesByUserId(String account) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> selectRoleByUserAccount(String account) {
+		return roleRelationMapper.selectRoleByUserAccount(account);
+	}
+
+	@Override
+	public List<RoleRelation> getRolesByUserId(String account) {
+		return roleRelationMapper.getRolesByUserId(account);
 	}
 
 }

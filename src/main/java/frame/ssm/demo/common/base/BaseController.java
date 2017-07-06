@@ -44,7 +44,12 @@ public class BaseController {
 	protected User getUser(){
 		return (User) SecurityUtils.getSubject().getPrincipal();
 	}
-	
+	/**
+	 * 分页工具类
+	 * @param rows 起始页
+	 * @param total 分页大小
+	 * @return
+	 */
 	protected String responseJsonPageData(@SuppressWarnings("rawtypes") List rows, long total) {
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("code", GlobalEnums.SUCCESS.getCode());
@@ -56,5 +61,61 @@ public class BaseController {
 			jsonObject.put("total", 0);
 		}
 		return jsonObject.toString();
+	}
+	/**
+	 * 返回成功信息
+	 * @param msg 信息
+	 * @return
+	 */
+	public String responseJsonSuccess(String msg){
+		if (msg == null || "".equals(msg)) {
+			msg = "成功!";
+		}
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("code", 200);
+		jsonObject.put("message",msg);
+		return jsonObject.toString();
+	}
+	/**
+	 * 返回失败信息
+	 * @param msg 信息
+	 * @return
+	 */
+	public String responseJsonFail(String msg){
+		if (msg == null || "".equals(msg)) {
+			msg = "失败!";
+		}
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("code", 400);
+		jsonObject.put("message",msg);
+		return jsonObject.toJSONString();
+	}
+	/**
+	 * 返回成功信息
+	 * @param object
+	 * @return
+	 */
+	public String responseJsonSuccess(Object object){
+		if (object != null) {
+			JSONObject jsonObject = new JSONObject();
+            jsonObject.put("code", 200);
+            jsonObject.put("data", object);
+            return jsonObject.toString();
+		}
+		return null;
+	}
+	/**
+	 * 返回失败信息
+	 * @param msg 信息
+	 * @return
+	 */
+	public String responseJsonFail(Integer code,String msg){
+		if (msg == null || "".equals(msg)) {
+			msg = "失败!";
+		}
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("code", code);
+		jsonObject.put("message",msg);
+		return jsonObject.toJSONString();
 	}
 }

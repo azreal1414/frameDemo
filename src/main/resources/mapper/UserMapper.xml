@@ -112,20 +112,20 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
+    from T_D_USER
     where ACCOUNT = #{account,jdbcType=VARCHAR}
   </select>
   
   <select id="selectList" parameterType="frame.ssm.demo.model.User" resultMap="BaseResultMap">
   	select 
   	<include refid="Base_Column_List"/> 
-  	from user 
+  	from T_D_USER 
   	<include refid="QUERY_CONDITION"/>
   	<include refid="ORDER_CONDITION"/>
   </select>
   
   <insert id="insert" parameterType="frame.ssm.demo.model.User">
-    insert into user (ACCOUNT, NAME, NIKE_NAME, 
+    insert into T_D_USER (ACCOUNT, NAME, NIKE_NAME, 
       ID_NUM, PASSWORD, SEX, AGE, 
       PHONE, EMAIL, NATION, 
       PROVINCE, CITY, AREA, 
@@ -142,7 +142,7 @@
   </insert>
   
   <insert id="insertSelective" parameterType="frame.ssm.demo.model.User">
-    insert into user
+    insert into T_D_USER
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="account != null">
         ACCOUNT,
@@ -270,11 +270,11 @@
   </insert>
   
   <select id="count" resultType="java.lang.Integer">
-    select count(*) from user
+    select count(*) from T_D_USER
   </select>
   
   <update id="updateByPrimaryKeySelective" parameterType="frame.ssm.demo.model.User">
-    update user
+    update T_D_USER
     <set>
       <if test="name != null">
         NAME = #{name,jdbcType=VARCHAR},
@@ -338,7 +338,7 @@
   </update>
   
   <update id="updateByPrimaryKey" parameterType="frame.ssm.demo.model.User">
-    update user
+    update T_D_USER
     set NAME = #{name,jdbcType=VARCHAR},
       NIKE_NAME = #{nikeName,jdbcType=VARCHAR},
       ID_NUM = #{idNum,jdbcType=VARCHAR},
@@ -360,4 +360,13 @@
       ENABLE = #{enable,jdbcType=TINYINT}
     where ACCOUNT = #{account,jdbcType=VARCHAR}
   </update>
+  
+  <select id="getUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT 
+  		<include refid="Base_Column_List"/> 
+  	FROM 
+  		T_D_USER
+  	WHERE 
+  		ACCOUNT = #{account}
+  </select>
 </mapper>

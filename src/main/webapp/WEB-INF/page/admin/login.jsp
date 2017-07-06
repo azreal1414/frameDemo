@@ -4,22 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-<!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5shiv.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
-<![endif]-->
-<link href="/static/css/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
-<link href="/static/css/h-ui-admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
-<link href="/static/css/h-ui-admin/css/style.css" rel="stylesheet" type="text/css" />
-<link href="/static/css/Hui-iconfont/iconfont.css" rel="stylesheet" type="text/css" />
-<!--[if IE 6]>
-<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script>
-<![endif]-->
+<%@ include file="/WEB-INF/page/head.jsp" %>
 <title>后台登录</title>
 </head>
 <body>
@@ -61,8 +46,25 @@
   </div>
 </div>
 <div class="footer">Copyright 你的公司名称 by H-ui.admin v3.0</div>
-<script type="text/javascript" src="/static/js/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="/static/js/h-ui/js/H-ui.min.js"></script>
+<!-- 弹出层 -->
+<div id="modal-demo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content radius">
+			<div class="modal-header">
+				<h3 class="modal-title">提示信息</h3>
+				<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+			</div>
+			<div class="modal-body">
+				<p>用户已经登录，是否退出并重新登录?</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary relog">是</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">否</button>
+			</div>
+		</div>
+	</div>
+</div>
+<%@ include file="/WEB-INF/page/foot.jsp" %>
 <script type="text/javascript">
 	$('#login').click(function(){
 		var options = {
@@ -70,9 +72,27 @@
 			type : "post",
 			success : function(res){
 				console.log(res);
+				res = eval('('+res+')');
+				if(res.code == 200){
+					
+				}else if(res.code == 401){
+					$("#modal-demo").modal("show");
+				}else{
+					$.Huimodalalert(res.message,2000);
+				}
 			}
 		};
 		$("#loginForm").ajaxSubmit(options);
+	});
+	$('.relog').click(function(){
+		var data = {};
+		data.callBack = "admin";
+		$.ajax({
+			url : "/logout",
+			type : "post",
+			data : data
+		});
+		$("#modal-demo").modal("hide");
 	})
 </script>
 </body>

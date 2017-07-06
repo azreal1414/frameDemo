@@ -9,4 +9,6 @@ import frame.ssm.demo.model.User;
  */
 public interface UserMapper extends BaseMapper<User>{
 	
+	User getUserByUsername(String account);
+	
 }

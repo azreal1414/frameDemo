@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="frame.ssm.demo.dao.RoleMapper">
+	<resultMap type="frame.ssm.demo.model.Role" id="RoleResultMap">
+		<id column="ROLE" jdbcType="VARCHAR" property="role" />
+	    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+	    <result column="ROLE_LEVEL" jdbcType="VARCHAR" property="roleLevel" />
+	    <result column="CREATE_TIME" jdbcType="VARCHAR" property="createTime" />
+	    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+	    <result column="UPDATE_TIME" jdbcType="VARCHAR" property="updateTime" />
+	    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+	    <result column="DEL_FLAG" jdbcType="TINYINT" property="delFlag" />
+	    <result column="ENABLE" jdbcType="TINYINT" property="enable" />
+	</resultMap>
+	
+	<sql id="BASE_COLUMN">
+		ROLE,ROLE_NAME,ROLE_LEVEL,CREATE_TIME,CREATE_USER,UPDATE_TIME,DEL_FLAG,ENABLE
+	</sql>
+	
+	<sql id="QUERY_CONDITION">
+	  	<where>
+	  		<if test="role != null">
+	  			ROLE = #{role, jdbcType=VARCHAR}
+	  		</if>
+	  		<if test="roleName != null">
+	  			ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+	  		</if>
+	  		<if test="roleLevel != null">
+	  			ROLE_LEVEL = #{roleLevel, jdbcType=VARCHAR}
+	  		</if>
+	  		<if test="createTime != null">
+  				CREATE_TIME = #{createTime, jdbcType=VARCHAR}
+	  		</if>
+	  		<if test="createUser != null">
+	  			CREATE_USER = #{createUser, jdbcType=VARCHAR}
+	  		</if>
+	  		<if test="updateTime != null">
+	  			UPDATE_TIME = #{updateTime, jdbcType=VARCHAR}
+	  		</if>
+	  		<if test="updateUser != null">
+	  			UPDATE_USER = #{updateUser, jdbcType=VARCHAR}
+	  		</if>
+	  		<if test="delFlag != null">
+	  			DEL_FLAG = #{delFlag, jdbcType=TINYINT}
+	  		</if>
+	  		<if test="enable != null">
+	  			ENABLE = #{enable, jdbcType=TINYINT}
+	  		</if>
+	  	</where>
+	</sql>
+	
+	<sql id="ORDER_CONDITION">
+        <if test="orderList != null">
+            <trim prefix="ORDER BY" prefixOverrides=",">
+                <foreach collection="orderList" open="" item="order" separator="," close="">
+                    <choose>
+                        <when test="order.columnName =='account'">ROLE ${order.option}</when>
+                        <when test="order.columnName =='createTime'">CREATE_TIME ${order.option}</when>
+                        <when test="order.columnName =='updateTime'">UPDATE_TIME ${order.option}</when>
+                    </choose>
+                </foreach>
+            </trim>
+        </if>
+    </sql>
+    
+    <sql id="BASE_TABLE">
+    	T_D_ROLE
+    </sql>
+    
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="RoleResultMap">
+    	SELECT 
+    		<include refid="BASE_COLUMN"/> 
+    	FROM 
+    		<include refid="BASE_TABLE"/> 
+    	WHERE 
+    		ROLE = #{role}
+    </select>
+    
+    <select id=""></select>
+</mapper>

@@ -11,7 +11,7 @@ public class ParamUtil {
 	 * @param param
 	 * @return
 	 */
-	public boolean isBlank(String param){
+	public static boolean isBlank(String param){
 		if (param == null || "".equals(param)) {
 			return true;
 		}
@@ -28,7 +28,7 @@ public class ParamUtil {
 	 * @param paramB
 	 * @return
 	 */
-	public boolean isEqualed(String paramA, String paramB){
+	public static boolean isEqualed(String paramA, String paramB){
 		if (isBlank(paramA) || isBlank(paramB)) {
 			return false;
 		}
@@ -43,7 +43,7 @@ public class ParamUtil {
 	 * @param paramB
 	 * @return
 	 */
-	public boolean isEqualed(String paramA, Integer paramB){
+	public static boolean isEqualed(String paramA, Integer paramB){
 		if (isBlank(paramA) || paramB == null) {
 			return false;
 		}
