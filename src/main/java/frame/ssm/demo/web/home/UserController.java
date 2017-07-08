@@ -9,8 +9,8 @@ import com.github.pagehelper.Page;
 
 import frame.ssm.demo.common.base.BaseController;
 import frame.ssm.demo.common.utils.PageUtils;
-import frame.ssm.demo.model.User;
-import frame.ssm.demo.service.UserService;
+import frame.ssm.demo.model.TDUser;
+import frame.ssm.demo.service.TDUserService;
 /**
  * 用户控制器
  * @author ZhouYu
@@ -21,13 +21,13 @@ import frame.ssm.demo.service.UserService;
 public class UserController extends BaseController{
 	
 	@Autowired
-	UserService userService;
+	TDUserService tDUserService;
 	
 	@RequestMapping(value = "/userList")
 	@ResponseBody
-	public String test(User user){
+	public String test(TDUser user){
 		PageUtils.startPage(user.getPage(), user.getRows());
-		Page<User> page = (Page<User>)userService.selectList(user);
+		Page<TDUser> page = (Page<TDUser>)tDUserService.selectList(user);
 		return responseJsonPageData(page.getResult(), page.getTotal());
 	}
 }

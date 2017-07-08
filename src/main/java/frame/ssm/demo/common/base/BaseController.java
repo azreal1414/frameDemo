@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 
 import frame.ssm.demo.common.enums.GlobalEnums;
-import frame.ssm.demo.model.User;
+import frame.ssm.demo.model.TDUser;
 
 /**
  * 基础控制
@@ -41,8 +41,8 @@ public class BaseController {
 	 * 获取当前登录用户信息
 	 * @return 用户实体
 	 */
-	protected User getUser(){
-		return (User) SecurityUtils.getSubject().getPrincipal();
+	protected TDUser getUser(){
+		return (TDUser) SecurityUtils.getSubject().getPrincipal();
 	}
 	/**
 	 * 分页工具类

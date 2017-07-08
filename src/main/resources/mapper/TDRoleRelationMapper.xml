@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" > 
+<mapper namespace="frame.ssm.demo.dao.TDRoleRelationMapper"> 
+    <resultMap id="BaseResultMap" type="frame.ssm.demo.model.TDRoleRelation"   >
+        <id   column="RELATION_UUID"  property="relationUuid" jdbcType="VARCHAR" />
+        <result column="USER_ACCOUNT"  property="userAccount"  jdbcType="VARCHAR" />
+        <result column="ROLE_UUID"  property="roleUuid"  jdbcType="VARCHAR" />
+        <result column="PARENT_UUID"  property="parentUuid"  jdbcType="VARCHAR" />
+        <result column="CREATE_USER"  property="createUser"  jdbcType="VARCHAR" />
+        <result column="CREATE_TIME"  property="createTime"  jdbcType="VARCHAR" />
+        <result column="UPDATE_USER"  property="updateUser"  jdbcType="VARCHAR" />
+        <result column="UPDATE_TIME"  property="updateTime"  jdbcType="VARCHAR" />
+        <result column="DEL_FLAG"  property="delFlag"  jdbcType="TINYINT" />
+        <result column="ENABLE"  property="enable"  jdbcType="TINYINT" />
+    </resultMap>
+
+     <sql id="Base_Column_List" >
+        RELATION_UUID,USER_ACCOUNT,ROLE_UUID,PARENT_UUID,CREATE_USER,CREATE_TIME,UPDATE_USER,UPDATE_TIME,DEL_FLAG,
+        ENABLE
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"  parameterType="java.lang.String"   >
+        select
+                <include refid="Base_Column_List" />
+        from t_d_role_relation
+        where  RELATION_UUID = #{id,jdbcType=VARCHAR} 
+    </select>
+
+    <delete id="deleteByPrimaryKey"   parameterType="java.lang.String"   >
+        delete from t_d_role_relation
+        where  RELATION_UUID = #{id,jdbcType=VARCHAR} 
+    </delete>
+
+    <insert id="insert"   parameterType="frame.ssm.demo.model.TDRoleRelation"   >
+        insert into t_d_role_relation
+                (RELATION_UUID,USER_ACCOUNT,ROLE_UUID,PARENT_UUID,CREATE_USER,CREATE_TIME,UPDATE_USER,UPDATE_TIME,DEL_FLAG,
+        ENABLE)
+        values(#{relationUuid,jdbcType=VARCHAR},#{userAccount,jdbcType=VARCHAR},#{roleUuid,jdbcType=VARCHAR},#{parentUuid,jdbcType=VARCHAR},#{createUser,jdbcType=VARCHAR},#{createTime,jdbcType=VARCHAR},#{updateUser,jdbcType=VARCHAR},#{updateTime,jdbcType=VARCHAR},#{delFlag,jdbcType=TINYINT},
+                  #{enable,jdbcType=TINYINT})
+    </insert>
+
+    <insert id="insertBach"   parameterType="List"  >
+        insert into t_d_role_relation
+                 (RELATION_UUID,USER_ACCOUNT,ROLE_UUID,PARENT_UUID,CREATE_USER,CREATE_TIME,UPDATE_USER,UPDATE_TIME,DEL_FLAG,
+        ENABLE)
+        values 
+                 <foreach collection="list" item="item" separator=",">
+                 (
+                     #{item.relationUuid,jdbcType=VARCHAR},
+                     #{item.userAccount,jdbcType=VARCHAR},
+                     #{item.roleUuid,jdbcType=VARCHAR},
+                     #{item.parentUuid,jdbcType=VARCHAR},
+                     #{item.createUser,jdbcType=VARCHAR},
+                     #{item.createTime,jdbcType=VARCHAR},
+                     #{item.updateUser,jdbcType=VARCHAR},
+                     #{item.updateTime,jdbcType=VARCHAR},
+                     #{item.delFlag,jdbcType=TINYINT},
+                     #{item.enable,jdbcType=TINYINT}
+                  )
+                 </foreach>
+    </insert>
+    <insert id="insertSelective"   parameterType="frame.ssm.demo.model.TDRoleRelation"  useGeneratedKeys="true"  keyProperty="relationUuid" >
+        insert into t_d_role_relation
+       <trim prefix="(" suffix=")" suffixOverrides="," >  
+              <if test="relationUuid  !=null">  
+                   RELATION_UUID,
+              </if>
+              <if test="userAccount  !=null">  
+                   USER_ACCOUNT,
+              </if>
+              <if test="roleUuid  !=null">  
+                   ROLE_UUID,
+              </if>
+              <if test="parentUuid  !=null">  
+                   PARENT_UUID,
+              </if>
+              <if test="createUser  !=null">  
+                   CREATE_USER,
+              </if>
+              <if test="createTime  !=null">  
+                   CREATE_TIME,
+              </if>
+              <if test="updateUser  !=null">  
+                   UPDATE_USER,
+              </if>
+              <if test="updateTime  !=null">  
+                   UPDATE_TIME,
+              </if>
+              <if test="delFlag  !=null">  
+                   DEL_FLAG,
+              </if>
+              <if test="enable  !=null">  
+                   ENABLE
+              </if>
+       </trim> 
+       <trim prefix="values (" suffix=")" suffixOverrides="," >
+              <if test="relationUuid  !=null">  
+                   #{relationUuid,jdbcType=VARCHAR},
+              </if>
+              <if test="userAccount  !=null">  
+                   #{userAccount,jdbcType=VARCHAR},
+              </if>
+              <if test="roleUuid  !=null">  
+                   #{roleUuid,jdbcType=VARCHAR},
+              </if>
+              <if test="parentUuid  !=null">  
+                   #{parentUuid,jdbcType=VARCHAR},
+              </if>
+              <if test="createUser  !=null">  
+                   #{createUser,jdbcType=VARCHAR},
+              </if>
+              <if test="createTime  !=null">  
+                   #{createTime,jdbcType=VARCHAR},
+              </if>
+              <if test="updateUser  !=null">  
+                   #{updateUser,jdbcType=VARCHAR},
+              </if>
+              <if test="updateTime  !=null">  
+                   #{updateTime,jdbcType=VARCHAR},
+              </if>
+              <if test="delFlag  !=null">  
+                   #{delFlag,jdbcType=TINYINT},
+              </if>
+              <if test="enable  !=null">  
+                   #{enable,jdbcType=TINYINT}
+              </if>
+       </trim> 
+    </insert> 
+
+    <update id="updateByPrimaryKeySelective"   parameterType="frame.ssm.demo.model.TDRoleRelation"   >
+        update t_d_role_relation
+             <set> 
+              <if test="relationUuid  !=null">  
+                   RELATION_UUID  = #{relationUuid,jdbcType=VARCHAR},
+              </if>
+              <if test="userAccount  !=null">  
+                   USER_ACCOUNT  = #{userAccount,jdbcType=VARCHAR},
+              </if>
+              <if test="roleUuid  !=null">  
+                   ROLE_UUID  = #{roleUuid,jdbcType=VARCHAR},
+              </if>
+              <if test="parentUuid  !=null">  
+                   PARENT_UUID  = #{parentUuid,jdbcType=VARCHAR},
+              </if>
+              <if test="createUser  !=null">  
+                   CREATE_USER  = #{createUser,jdbcType=VARCHAR},
+              </if>
+              <if test="createTime  !=null">  
+                   CREATE_TIME  = #{createTime,jdbcType=VARCHAR},
+              </if>
+              <if test="updateUser  !=null">  
+                   UPDATE_USER  = #{updateUser,jdbcType=VARCHAR},
+              </if>
+              <if test="updateTime  !=null">  
+                   UPDATE_TIME  = #{updateTime,jdbcType=VARCHAR},
+              </if>
+              <if test="delFlag  !=null">  
+                   DEL_FLAG  = #{delFlag,jdbcType=TINYINT},
+              </if>
+              <if test="enable  !=null">  
+                   ENABLE  = #{enable,jdbcType=TINYINT}
+              </if>
+       </set> 
+       where RELATION_UUID = #{relationUuid,jdbcType=VARCHAR} 
+    </update> 
+
+    <update id="updateByPrimaryKey"   parameterType="frame.ssm.demo.model.TDRoleRelation"   >
+        update t_d_role_relation  set  
+                   RELATION_UUID  = #{relationUuid,jdbcType=VARCHAR},
+                   USER_ACCOUNT  = #{userAccount,jdbcType=VARCHAR},
+                   ROLE_UUID  = #{roleUuid,jdbcType=VARCHAR},
+                   PARENT_UUID  = #{parentUuid,jdbcType=VARCHAR},
+                   CREATE_USER  = #{createUser,jdbcType=VARCHAR},
+                   CREATE_TIME  = #{createTime,jdbcType=VARCHAR},
+                   UPDATE_USER  = #{updateUser,jdbcType=VARCHAR},
+                   UPDATE_TIME  = #{updateTime,jdbcType=VARCHAR},
+                   DEL_FLAG  = #{delFlag,jdbcType=TINYINT},
+                   ENABLE  = #{enable,jdbcType=TINYINT}
+       where RELATION_UUID = #{relationUuid,jdbcType=VARCHAR} 
+    </update> 
+
+    <sql id="whereCase"  >
+         where  1=1  
+        <if test="relationUuid !=null">  
+         AND RELATION_UUID  = #{relationUuid,jdbcType=VARCHAR}
+        </if>
+        <if test="userAccount !=null">  
+         AND USER_ACCOUNT  = #{userAccount,jdbcType=VARCHAR}
+        </if>
+        <if test="roleUuid !=null">  
+         AND ROLE_UUID  = #{roleUuid,jdbcType=VARCHAR}
+        </if>
+        <if test="parentUuid !=null">  
+         AND PARENT_UUID  = #{parentUuid,jdbcType=VARCHAR}
+        </if>
+        <if test="createUser !=null">  
+         AND CREATE_USER  = #{createUser,jdbcType=VARCHAR}
+        </if>
+        <if test="createTime !=null">  
+         AND CREATE_TIME  = #{createTime,jdbcType=VARCHAR}
+        </if>
+        <if test="updateUser !=null">  
+         AND UPDATE_USER  = #{updateUser,jdbcType=VARCHAR}
+        </if>
+        <if test="updateTime !=null">  
+         AND UPDATE_TIME  = #{updateTime,jdbcType=VARCHAR}
+        </if>
+        <if test="delFlag !=null">  
+         AND DEL_FLAG  = #{delFlag,jdbcType=TINYINT}
+        </if>
+        <if test="enable !=null">  
+         AND ENABLE  = #{enable,jdbcType=TINYINT}
+        </if>
+        <include refid="costomWhereCase"/>
+    </sql> 
+
+    <sql id="orderByCase"  >
+         <if  test ="orderList !=null">
+         	<trim prefix="ORDER BY" prefixOverrides=",">
+         		<foreach collection="orderList" open="" item="order" separator="," close="">
+         			<choose>
+         				<when test="order.columnName =='createTime'">CREATE_TIME ${order.option}</when>
+         				<when test="order.columnName =='updateTime'">UPDATE_TIME ${order.option}</when>
+         			</choose>
+         		</foreach>
+         	</trim>
+         </if>
+    </sql>
+
+    <select id="selectOne" parameterType="java.util.Map" resultMap="BaseResultMap">
+         SELECT
+         <include refid="Base_Column_List" /> 
+         FROM t_d_role_relation 
+         <include refid="whereCase" /> 
+    </select>
+
+    <select id="selectList" parameterType="java.util.Map" resultMap="BaseResultMap">
+         SELECT
+         <include refid="Base_Column_List" /> 
+         FROM t_d_role_relation 
+         <include refid="whereCase" /> 
+         <include refid="orderByCase" /> 
+    </select>
+
+    <select id="count" parameterType="java.util.Map" resultType="java.lang.Integer">
+         SELECT
+         count(*) 
+         FROM t_d_role_relation 
+         <include refid="whereCase" /> 
+    </select>
+
+<!--  @Costom -->
+<!-- 从上一行注释以上为系统生成 从这一行往下为用户自定义 请将自定义的sql放在此行下面 -->
+
+    <sql id="costomWhereCase">
+	</sql>
+	
+	<select id="selectRoleByUserAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List"/> 
+		FROM 
+			t_d_role_relation 
+		WHERE USER_ACCOUNT = #{userAccount}
+	</select>
+</mapper>

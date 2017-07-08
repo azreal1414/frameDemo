@@ -13,19 +13,19 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import frame.ssm.demo.model.User;
-import frame.ssm.demo.service.UserService;
+import frame.ssm.demo.model.TDUser;
+import frame.ssm.demo.service.TDUserService;
 
 public class UserRealm extends AuthorizingRealm {
 	
 	@Autowired
-	private UserService userService;
+	private TDUserService tdUserService;
 	
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		//获取当前登录的用户名
-		User user = (User) principals.getPrimaryPrincipal();
+		TDUser user = (TDUser) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();
-		List<String> list = userService.selectRoleByUserAccount(user.getAccount());
+		List<String> list = tdUserService.selectRoleByUserAccount(user.getAccount());
 		simpleAuthorInfo.addRoles(list);
 		return simpleAuthorInfo;
 	}
@@ -37,7 +37,7 @@ public class UserRealm extends AuthorizingRealm {
 	 */
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken authToken = (UsernamePasswordToken) token;
-		User user = userService.getUserByUsername(authToken.getUsername());
+		TDUser user = tdUserService.getUserByUsername(authToken.getUsername());
 		if (null != user) {
 			return new SimpleAuthenticationInfo(user, user.getPassword(), this.getName());
 		}

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import frame.ssm.demo.common.base.BaseController;
 import frame.ssm.demo.common.utils.LoginUtil;
 import frame.ssm.demo.common.utils.ParamUtil;
-import frame.ssm.demo.model.RoleRelation;
-import frame.ssm.demo.model.User;
-import frame.ssm.demo.service.UserService;
+import frame.ssm.demo.model.TDRoleRelation;
+import frame.ssm.demo.model.TDUser;
+import frame.ssm.demo.service.TDUserService;
 
 /**
  * 后台用户登录控制器
@@ -28,7 +28,7 @@ public class AdminLoginController extends BaseController{
 	 * 注入service
 	 */
 	@Autowired
-	UserService userService;
+	TDUserService tDUseServcie;
 	/**
 	 * 后台登录
 	 * @param user
@@ -36,7 +36,7 @@ public class AdminLoginController extends BaseController{
 	 */
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public String login(User user,HttpServletRequest request){
+	public String login(TDUser user,HttpServletRequest request){
 		//判断用户是否登录
 		if (this.getUser() != null) {
 			return this.responseJsonFail(401,"用户已经登录!");
@@ -46,10 +46,12 @@ public class AdminLoginController extends BaseController{
 			boolean login = LoginUtil.login(user.getAccount(), user.getPassword());
 			//登录成功后将用户信息放入session中
 			if (login) {
-				User userInfo = this.getUser();
-				List<RoleRelation> list = userService.getRolesByUserId(userInfo.getAccount());
-				for (RoleRelation relation : list) {
-					if (relation.getRoleUuid().equals("11111111")) {
+				TDUser userInfo = this.getUser();
+				TDRoleRelation relation = new TDRoleRelation();
+				relation.setUserAccount(userInfo.getAccount());
+				List<TDRoleRelation> list = tDUseServcie.selectRoleByUserAccount(relation);
+				for (TDRoleRelation rel : list) {
+					if (rel.getRoleUuid().equals("11111111")) {
 						request.getSession().setAttribute("user", userInfo);
 						return this.responseJsonSuccess("登录成功!");
 					}
@@ -63,11 +65,16 @@ public class AdminLoginController extends BaseController{
 	@RequestMapping(value = "loginTest")
 	@ResponseBody
 	public String loginTest(HttpServletRequest request){
-		User user = this.getUser();
+		TDUser user = this.getUser();
 		if (user != null) {
 			request.getSession().setAttribute("user", user);
 			return this.responseJsonSuccess(request.getSession().getAttribute("user"));
 		}
 		return this.responseJsonFail("没有获取到用户信息!");
+	}
+	
+	public static void main(String[] args) {
+		String str = "123123123123";
+		System.out.println(str.substring(0, 3));;
 	}
 }

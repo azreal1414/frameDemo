@@ -1,6 +1,7 @@
 package frame.ssm.demo.common.base;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 基础DAO接口
@@ -48,4 +49,10 @@ public interface BaseMapper<T> {
 	 * 数量查询
 	 */
     int count();
+    /**
+     * 条件查询
+     * @param param 查询条件
+     * @return
+     */
+	 public T selectOne(Map<String,Object> param);
 }
