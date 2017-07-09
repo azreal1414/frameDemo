@@ -47,6 +47,7 @@ public class CommonController extends BaseController{
 	@RequestMapping(value = "/logout")
 	public String logout(HttpServletRequest request){
 		SecurityUtils.getSubject().logout();
+		request.getSession().removeAttribute("user");
 		String callBack = request.getParameter("callBack");
 		if ("admin".equals(callBack)) {
 			return "admin/login";

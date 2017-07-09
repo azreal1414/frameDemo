@@ -5,7 +5,9 @@
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <!-- CSS -->
 <link href="/static/css/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="/static/css/h-ui-admin/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 <link href="/static/css/h-ui-admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+<link href="/static/css/h-ui-admin/skin/default/skin.css" rel="stylesheet" type="text/css"  id="skin" />
 <link href="/static/css/h-ui-admin/css/style.css" rel="stylesheet" type="text/css" />
 <link href="/static/css/Hui-iconfont/iconfont.css" rel="stylesheet" type="text/css" />
 <!--[if lt IE 9]>

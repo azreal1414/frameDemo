@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@ include file="/WEB-INF/page/head.jsp" %>
+<%@ include file="/WEB-INF/page/admin/head.jsp" %>
 <title>后台登录</title>
 </head>
 <body>
@@ -64,7 +64,7 @@
 		</div>
 	</div>
 </div>
-<%@ include file="/WEB-INF/page/foot.jsp" %>
+<%@ include file="/WEB-INF/page/admin/foot.jsp" %>
 <script type="text/javascript">
 	$('#login').click(function(){
 		var options = {
@@ -74,7 +74,7 @@
 				console.log(res);
 				res = eval('('+res+')');
 				if(res.code == 200){
-					
+					location.href = "/admin/manage";
 				}else if(res.code == 401){
 					$("#modal-demo").modal("show");
 				}else{
